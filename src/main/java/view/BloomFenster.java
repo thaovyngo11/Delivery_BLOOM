@@ -1,5 +1,7 @@
 package view;
 
+import model.Bestellung;
+
 import javax.swing.*;
 
 public class BloomFenster extends JFrame {
@@ -44,4 +46,15 @@ public class BloomFenster extends JFrame {
     private JScrollPane scp_Bestellung_Uebersicht;
     private JTextArea ta_Bestellung_Uebersicht;
 
+    public BloomFenster() {
+
+        setTitle("Bloom");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1000, 500);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setContentPane(myPanel);
+        setVisible(true);
+
+    }
 }
