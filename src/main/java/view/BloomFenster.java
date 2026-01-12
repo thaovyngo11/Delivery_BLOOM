@@ -1,10 +1,11 @@
 package view;
 
 import com.toedter.calendar.JDateChooser;
-import model.Bestellung;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Locale;
 
 public class BloomFenster extends JFrame {
@@ -60,9 +61,14 @@ public class BloomFenster extends JFrame {
         setLocationRelativeTo(null);
         setContentPane(myPanel);
         setVisible(true);
+
         setupDatum_Uhrzeit();
+        setup_cbx_Verpackung();
+        setupActionListener_Berechnen();
+        setupActionListener_Speichern();
 
     }
+
     private void setupDatum_Uhrzeit() {
 
         Locale.setDefault(Locale.GERMANY);                                  // Sprache und Format auf Deutsch festlegen
@@ -75,4 +81,64 @@ public class BloomFenster extends JFrame {
         spn_Uhrzeit.setEditor(new JSpinner.DateEditor(spn_Uhrzeit, "HH:mm"));   // setEditor(...): Anzeigeformat für Uhrzeit festlegen (z.B.: 10:30)
 
     }
+
+    public void setup_cbx_Verpackung() {
+        cb_Verpackung.addItem("Rundstrauß");
+        cb_Verpackung.addItem("Blumenkorb");
+    }
+
+    private void setupActionListener_Berechnen() {
+
+        btn_Berechnen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                double gesamtpreis = berechneGesamtpreis();
+                tf_Gesamtpreis.setText(gesamtpreis + " Euro");
+
+            }
+        });
+
+    }
+
+    private double berechneGesamtpreis() {
+
+        double preis = 0.0;
+
+        if (chb_Blumen1.isSelected()) {
+            preis += 0.8;
+        }
+        if (chb_Blumen2.isSelected()) {
+            preis += 2.0;
+        }
+        if (chb_Blumen3.isSelected()) {
+            preis += 2.0;
+        }
+
+        if (chb_Accessorie1.isSelected()) {
+            preis += 3.0;
+        }
+        if (chb_Accessorie2.isSelected()) {
+            preis += 5.0;
+        }
+        if (chb_Accessorie3.isSelected()) {
+            preis += 10.0;
+        }
+
+        return preis;
+    }
+
+    private void setupActionListener_Speichern() {
+
+        btn_Speichern_und_Anzeigen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                ta_Bestellung_Uebersicht.append(
+                        "Bestellung gespeichert!\n"
+                );
+            }
+        });
+    }
+
 }
