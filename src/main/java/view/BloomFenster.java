@@ -1,8 +1,11 @@
 package view;
 
+import com.toedter.calendar.JDateChooser;
 import model.Bestellung;
 
 import javax.swing.*;
+import java.awt.*;
+import java.util.Locale;
 
 public class BloomFenster extends JFrame {
 
@@ -46,6 +49,8 @@ public class BloomFenster extends JFrame {
     private JScrollPane scp_Bestellung_Uebersicht;
     private JTextArea ta_Bestellung_Uebersicht;
 
+    private JDateChooser dateChooser;
+
     public BloomFenster() {
 
         setTitle("Bloom");
@@ -55,6 +60,19 @@ public class BloomFenster extends JFrame {
         setLocationRelativeTo(null);
         setContentPane(myPanel);
         setVisible(true);
+        setupDatum_Uhrzeit();
+
+    }
+    private void setupDatum_Uhrzeit() {
+
+        Locale.setDefault(Locale.GERMANY);                                  // Sprache und Format auf Deutsch festlegen
+        dateChooser = new JDateChooser();                                   // JDateChooser-Objekt initialisieren (Kalenderfeld)
+        dateChooser.setPreferredSize(new Dimension(150, 25));  // Größe des Datumswählers festlegen
+        datumPanel.setLayout(new FlowLayout(FlowLayout.LEFT));              // Layout des Panels auf FlowLayout setzen
+        datumPanel.add(dateChooser);
+
+        spn_Uhrzeit.setModel(new SpinnerDateModel());                                           // SpinnerDateModel: Uhrzeit initialisieren
+        spn_Uhrzeit.setEditor(new JSpinner.DateEditor(spn_Uhrzeit, "HH:mm"));   // setEditor(...): Anzeigeformat für Uhrzeit festlegen (z.B.: 10:30)
 
     }
 }
