@@ -2,6 +2,7 @@ package view;
 
 import com.toedter.calendar.JDateChooser;
 import model.Bestellung;
+import model.BestellungVerwaltung;
 import model.Geschenk;
 
 import javax.swing.*;
@@ -132,16 +133,26 @@ public class BloomFenster extends JFrame {
 
     private void setupActionListener_Speichern() {
 
-        btn_Speichern_und_Anzeigen.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        btn_Speichern_und_Anzeigen.addActionListener(e -> {
 
-                ta_Bestellung_Uebersicht.append(
-                        "Bestellung gespeichert!\n"
+            try {
+                Bestellung bestellung = erzeugeBestellungAusEingaben();
+
+                BestellungVerwaltung.addBestellung(bestellung);
+
+                zeigeBestellung(bestellung);
+
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        ex.getMessage(),
+                        "Fehler",
+                        JOptionPane.ERROR_MESSAGE
                 );
             }
         });
     }
+
     private String leseName() {
         String name = tf_Empfaenger.getText().trim();
         if (name.isEmpty())
