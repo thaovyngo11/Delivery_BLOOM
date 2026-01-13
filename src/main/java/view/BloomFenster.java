@@ -160,5 +160,28 @@ public class BloomFenster extends JFrame {
             throw new IllegalArgumentException("Adresse darf nicht leer sein.");
         return adresse;
     }
+    private java.util.List<model.Geschenk> erzeugeGeschenkListe() {
+
+        java.util.List<model.Geschenk> liste = new java.util.ArrayList<>();
+
+        if (chb_Blumen1.isSelected())
+            liste.add(new model.Geschenk("Blumen", "Rose", 0.8));
+        if (chb_Blumen2.isSelected())
+            liste.add(new model.Geschenk("Blumen", "Sonnenblumen", 2.0));
+        if (chb_Blumen3.isSelected())
+            liste.add(new model.Geschenk("Blumen", "Hortensie", 2.0));
+
+        if (chb_Accessorie1.isSelected())
+            liste.add(new model.Geschenk("Accessories", "Grußkarte", 3.0));
+        if (chb_Accessorie2.isSelected())
+            liste.add(new model.Geschenk("Accessories", "Schokolade", 5.0));
+        if (chb_Accessorie3.isSelected())
+            liste.add(new model.Geschenk("Accessories", "Teddybär", 10.0));
+
+        if (liste.isEmpty())
+            throw new IllegalArgumentException("Bitte wählen Sie mindestens ein Geschenk.");
+
+        return liste;
+    }
 
 }
