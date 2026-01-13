@@ -183,5 +183,27 @@ public class BloomFenster extends JFrame {
 
         return liste;
     }
+    private java.time.LocalDateTime leseDatumUndUhrzeit() {
+
+        java.util.Date datum = dateChooser.getDate();
+        if (datum == null)
+            throw new IllegalArgumentException("Bitte wählen Sie ein Datum.");
+
+        java.time.LocalDate date =
+                datum.toInstant()
+                        .atZone(java.time.ZoneId.systemDefault())
+                        .toLocalDate();
+
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.setTime((java.util.Date) spn_Uhrzeit.getValue());
+
+        java.time.LocalTime time =
+                java.time.LocalTime.of(
+                        cal.get(java.util.Calendar.HOUR_OF_DAY),
+                        cal.get(java.util.Calendar.MINUTE)
+                );
+
+        return java.time.LocalDateTime.of(date, time);
+    }
 
 }
