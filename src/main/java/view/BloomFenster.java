@@ -1,6 +1,8 @@
 package view;
 
 import com.toedter.calendar.JDateChooser;
+import model.Bestellung;
+import model.Geschenk;
 
 import javax.swing.*;
 import java.awt.*;
@@ -216,5 +218,37 @@ public class BloomFenster extends JFrame {
 
         return new model.Bestellung(name, telefon, adresse, liste, zeitpunkt);
     }
+    private void zeigeBestellung(Bestellung b) {
 
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("========== BESTELLUNG ==========\n\n");
+        sb.append("Empfänger: ").append(b.getEmpfaengerName()).append("\n");
+        sb.append("Telefon: ").append(b.getEmpfaengerTelefonnummer()).append("\n");
+        sb.append("Adresse: ").append(b.getEmpfaengerAdresse()).append("\n\n");
+
+        sb.append("Geschenke:\n");
+        for (Geschenk g : b.getKatergorie()) {
+            sb.append("- ")
+                    .append(g.getGeschenk())
+                    .append(" : ")
+                    .append(g.getAngebot())
+                    .append(" (")
+                    .append(g.getPreis())
+                    .append(" €)\n");
+        }
+
+        sb.append("\nGesamtpreis: ")
+                .append(b.getGesamtpreis())
+                .append(" €\n");
+
+        sb.append("Datum & Uhrzeit: ")
+                .append(b.getDatum());
+
+        ta_Bestellung_Uebersicht.append(sb.toString());
+        ta_Bestellung_Uebersicht.append("\n\n");
+        ta_Bestellung_Uebersicht.setCaretPosition(
+                ta_Bestellung_Uebersicht.getDocument().getLength()
+        );
+    }
 }
