@@ -185,18 +185,22 @@ public class BloomFenster extends JFrame {
         java.util.List<model.Geschenk> liste = new java.util.ArrayList<>();
 
         if (chb_Blumen1.isSelected())
-            liste.add(new model.Geschenk("Blumen", "Rose", 0.8));
+            liste.add(new Geschenk("Blumen", "Rose", getPreis("Blumen", "Rose")));
+
         if (chb_Blumen2.isSelected())
-            liste.add(new model.Geschenk("Blumen", "Sonnenblumen", 2.0));
+            liste.add(new Geschenk("Blumen", "Sonnenblumen", getPreis("Blumen", "Sonnenblumen")));
+
         if (chb_Blumen3.isSelected())
-            liste.add(new model.Geschenk("Blumen", "Hortensie", 2.0));
+            liste.add(new Geschenk("Blumen", "Hortensie", getPreis("Blumen", "Hortensie")));
 
         if (chb_Accessorie1.isSelected())
-            liste.add(new model.Geschenk("Accessories", "Grußkarte", 3.0));
+            liste.add(new Geschenk("Accessories", "Grußkarte", getPreis("Accessories", "Grußkarte")));
+
         if (chb_Accessorie2.isSelected())
-            liste.add(new model.Geschenk("Accessories", "Schokolade", 5.0));
+            liste.add(new Geschenk("Accessories", "Schokolade", getPreis("Accessories", "Schokolade")));
+
         if (chb_Accessorie3.isSelected())
-            liste.add(new model.Geschenk("Accessories", "Teddybär", 10.0));
+            liste.add(new Geschenk("Accessories", "Teddybär", getPreis("Accessories", "Teddybär")));
 
         if (liste.isEmpty())
             throw new IllegalArgumentException("Bitte wählen Sie mindestens ein Geschenk.");
