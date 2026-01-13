@@ -205,5 +205,16 @@ public class BloomFenster extends JFrame {
 
         return java.time.LocalDateTime.of(date, time);
     }
+    private model.Bestellung erzeugeBestellungAusEingaben() {
+
+        String name = leseName();
+        String telefon = leseTelefon();
+        String adresse = leseAdresse();
+
+        java.util.List<model.Geschenk> liste = erzeugeGeschenkListe();
+        java.time.LocalDateTime zeitpunkt = leseDatumUndUhrzeit();
+
+        return new model.Bestellung(name, telefon, adresse, liste, zeitpunkt);
+    }
 
 }
