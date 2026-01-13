@@ -140,5 +140,25 @@ public class BloomFenster extends JFrame {
             }
         });
     }
+    private String leseName() {
+        String name = tf_Empfaenger.getText().trim();
+        if (name.isEmpty())
+            throw new IllegalArgumentException("Name darf nicht leer sein.");
+        return name;
+    }
+
+    private String leseTelefon() {
+        String telefon = tf_EmpfaengerTele.getText().trim();
+        if (telefon.isEmpty())
+            throw new IllegalArgumentException("Telefonnummer darf nicht leer sein.");
+        return telefon;
+    }
+
+    private String leseAdresse() {
+        String adresse = tf_EmpfaengerAdresse.getText().trim();
+        if (adresse.isEmpty())
+            throw new IllegalArgumentException("Adresse darf nicht leer sein.");
+        return adresse;
+    }
 
 }
