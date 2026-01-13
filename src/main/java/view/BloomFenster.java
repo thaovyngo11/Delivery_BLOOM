@@ -104,31 +104,38 @@ public class BloomFenster extends JFrame {
 
     }
 
-    private double berechneGesamtpreis() {
-
+    public double berechneGesamtpreis() {                                 // Hilfsmethode zur Preisberechnung
         double preis = 0.0;
 
-        if (chb_Blumen1.isSelected()) {
-            preis += 0.8;
+        if (chb_Blumen1.isSelected()) {                                   // Wenn Dienst 1 (Massage) ausgewählt ist
+            preis += getPreis("Blumen", "Rose");               // Preis automatisch aus der Dienst-Liste holen. getPreis(Kategorie, Angebot) durchsucht alle gespeicherten Dienste
         }
         if (chb_Blumen2.isSelected()) {
-            preis += 2.0;
+            preis += getPreis("Blumen", "Sonnenblumen");
         }
         if (chb_Blumen3.isSelected()) {
-            preis += 2.0;
+            preis += getPreis("Blumen", "Hortensie");
         }
-
-        if (chb_Accessorie1.isSelected()) {
-            preis += 3.0;
+        if (chb_Accessorie1.isSelected()) {                                   // Wenn Dienst 1 (Massage) ausgewählt ist
+            preis += getPreis("Accessories", "Grußkarte");               // Preis automatisch aus der Dienst-Liste holen. getPreis(Kategorie, Angebot) durchsucht alle gespeicherten Dienste
         }
         if (chb_Accessorie2.isSelected()) {
-            preis += 5.0;
+            preis += getPreis("Accessories", "Schokolade");
         }
         if (chb_Accessorie3.isSelected()) {
-            preis += 10.0;
+            preis += getPreis("Accessories", "Teddybär");
         }
+        return preis; // Rückgabe des Gesamtpreises
+    }
 
-        return preis;
+    // Methode zum Ermitteln des Preises anhand Kategorie + Angebot
+    public double getPreis(String geschenk, String angebot) {
+        for (Geschenk g : Geschenk.getAlleAngebot()) {
+            if (g.getGeschenk().equals(geschenk) && g.getAngebot().equals(angebot)) {
+                return g.getPreis();
+            }
+        }
+        return 0.0;
     }
 
     private void setupActionListener_Speichern() {
