@@ -37,7 +37,7 @@ class BestellungTest {
     @Test
     void testgetKategorie() {
         List<Geschenk> angebot = new ArrayList<>();
-        angebot.add(new Geschenk("Blumen", "Rose", 0.80));
+        angebot.add(new Geschenk("Blumen", "Rose", 10.0));
         angebot.add(new Geschenk("Accessories", "Grußkarte", 3.0));
 
         Bestellung b = new Bestellung("Moh", "015302793261", "Wiley Straße 5, 89233 Neu-Ulm", angebot,
@@ -53,7 +53,7 @@ class BestellungTest {
         LocalDateTime datum = LocalDateTime.of(2025, 12, 30, 10, 0);
         Bestellung b = new Bestellung("Moh", "015302793261", "Wiley Straße 5, 89233 Neu-Ulm",
                 List.of(
-                        new Geschenk("Blumen", "Rose", 0.80),
+                        new Geschenk("Blumen", "Rose", 10.0),
                         new Geschenk("Accessories", "Grußkarte", 3.0)
                 ),
                 datum);

@@ -9,20 +9,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class GeschenkTest {
     @Test
     void testgetGeschenk() {
-        Geschenk g = new Geschenk("Blumen", "Rose", 2.0);
+        Geschenk g = new Geschenk("Blumen", "Rose", 10.0);
         assertEquals("Blumen", g.getGeschenk());
     }
 
     @Test
     void testgetAngebot() {
-        Geschenk g = new Geschenk("Blumen", "Rose", 2.0);
+        Geschenk g = new Geschenk("Blumen", "Rose", 10.0);
         assertEquals("Rose", g.getAngebot());
     }
 
     @Test
     void testgetPreis() {
-        Geschenk d = new Geschenk("Blumen", "Rose", 2.0);
-        assertEquals(2.0, d.getPreis());
+        Geschenk d = new Geschenk("Blumen", "Rose", 10.0);
+        assertEquals(10.0, d.getPreis());
     }
 
     @Test
@@ -37,7 +37,7 @@ class GeschenkTest {
         for (Geschenk g : angebote) {
             if (g.getGeschenk().equals("Blumen") &&
                     g.getAngebot().equals("Rose") &&
-                    g.getPreis() == 0.80) {
+                    g.getPreis() == 10.0) {
                 gefunden = true;
                 break;
             }

@@ -60,9 +60,9 @@ public class Geschenk {
         List<Geschenk> angebot = new ArrayList<>(); // Neue Liste erstellen
 
         //Blumen-Angebote hinzufügt
-        angebot.add(new Geschenk("Blumen", "Rose", 0.80));
-        angebot.add(new Geschenk("Blumen","Sonnenblumen", 2.0));
-        angebot.add(new Geschenk("Blumen", "Hortensie", 2.0));
+        angebot.add(new Geschenk("Blumen", "Rose", 10.0));
+        angebot.add(new Geschenk("Blumen","Sonnenblumen", 12.0));
+        angebot.add(new Geschenk("Blumen", "Hortensie", 14.0));
 
         //Accessories-Angebote hinzufügt
         angebot.add(new Geschenk("Accessories","Grußkarte", 3.0));

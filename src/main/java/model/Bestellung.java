@@ -61,6 +61,7 @@ public class Bestellung {
     // SETTER-METHODEN
 
     public void setEmpfaengerName(String empfaengerName) {
+
         this.empfaengerName = empfaengerName;
     }
 
@@ -69,14 +70,17 @@ public class Bestellung {
     }
 
     public void setEmpfaengerAdresse(String empfaengerAdresse) {
+
         this.empfaengerAdresse = empfaengerAdresse;
     }
 
     public void setKatergorie(List<Geschenk> katergorie) {
+
         this.katergorie = katergorie;
     }
 
     public void setDatum(LocalDateTime datum) {
+
         this.datum = datum;
     }
 

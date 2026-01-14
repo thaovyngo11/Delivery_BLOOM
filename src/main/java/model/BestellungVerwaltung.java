@@ -36,7 +36,7 @@ public class BestellungVerwaltung {
         bestellungen.clear();
         List<Geschenk> angebot1 = new ArrayList<>();
 
-        angebot1.add(new Geschenk("Blumen", "Rose", 0.50));
+        angebot1.add(new Geschenk("Blumen", "Rose", 10.0));
 
         Bestellung b1 = new Bestellung( "Büsra", "015263816491", "Wiley Straße 1, 89231 Neu-Ulm", angebot1,
                 LocalDateTime.of(2025, 12, 20, 18, 0)

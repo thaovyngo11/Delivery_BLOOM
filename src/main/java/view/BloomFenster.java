@@ -18,13 +18,16 @@ import java.util.List;
 
 public class BloomFenster extends JFrame {
 
+    // ----------------------------- //
+    // 1. ATTRIBUTE: GUI-KOMPONENTEN //
+    // ----------------------------- //
+
     private JPanel myPanel;
     private JLabel lbl_Slogan;
 
     private JTextField tf_Empfaenger;
     private JTextField tf_EmpfaengerTele;
     private JTextField tf_EmpfaengerAdresse;
-
     private JLabel lbl_Empfaenger;
     private JLabel lbl_EmpfaengerTele;
     private JLabel lbl_EmpfaengerAdresse;
@@ -34,10 +37,8 @@ public class BloomFenster extends JFrame {
     private JCheckBox chb_Blumen1;
     private JCheckBox chb_Blumen2;
     private JCheckBox chb_Blumen3;
-
     private JLabel lbl_Verpackung;
     private JComboBox cb_Verpackung;
-
     private JLabel lbl_Accessorie;
     private JCheckBox chb_Accessorie1;
     private JCheckBox chb_Accessorie2;
@@ -62,6 +63,10 @@ public class BloomFenster extends JFrame {
     private BestellungVerwaltung verwaltung = new BestellungVerwaltung();  // Speichert und verwaltet alle Bestellungen
     private boolean initialisiert = false;
 
+    // ------------------------------------- //
+    // 2. KONSTRUKTOR: GUI INITIALISIEREN    //
+    // ------------------------------------- //
+
     public BloomFenster() {
 
         setTitle("Bloom");
@@ -77,7 +82,7 @@ public class BloomFenster extends JFrame {
         setupActionListener_Berechnen();
         setupActionListener_Speichern();
 
-        //ladeInitialTermine();
+        //ladeInitialBestellungen();
         verwaltung.initObjekte();
         for (Bestellung b: verwaltung.getAlleBestellungen()) {
             zeigeBestellung(b);
@@ -108,6 +113,10 @@ public class BloomFenster extends JFrame {
         }
     }
 
+    // ---------------------------------------------------//
+    //  3. KONSTRUKTOR: DATUM - UHRZEIT - ANZEIGEN PANEL  //
+    // ---------------------------------------------------//
+
     private void setupDatum_Uhrzeit() {
 
         Locale.setDefault(Locale.GERMANY);                                  // Sprache und Format auf Deutsch festlegen
@@ -120,6 +129,10 @@ public class BloomFenster extends JFrame {
         spn_Uhrzeit.setEditor(new JSpinner.DateEditor(spn_Uhrzeit, "HH:mm"));   // setEditor(...): Anzeigeformat für Uhrzeit festlegen (z.B.: 10:30)
 
     }
+
+    // ---------------------------- //
+    // 4. ACTIONLISTENER: Berechnen //
+    // ---------------------------- //
 
     public void setup_cbx_Verpackung() {
         cb_Verpackung.addItem("Rundstrauß");
@@ -174,6 +187,10 @@ public class BloomFenster extends JFrame {
         return 0.0;
     }
 
+    // ----------------------------------------  //
+    // 5. ACTIONLISTENER: Speichern und Anzeigen //
+    // ----------------------------------------  //
+
     private void setupActionListener_Speichern() {
 
         btn_Speichern_und_Anzeigen.addActionListener(e -> {
@@ -203,7 +220,7 @@ public class BloomFenster extends JFrame {
             throw new IllegalArgumentException("Bitte geben Sie einen gültigen Namen ein!");
         }
         String telefon = tf_EmpfaengerTele.getText().trim();
-        if (telefon.isEmpty() || !telefon.matches("\\d+"))                               // Wenn tf_Telefonnummer leer ist und keine Ziffern hat, Fehler auslösen
+        if (telefon.isEmpty() || !telefon.matches("\\d+"))
             throw new IllegalArgumentException("Bitte geben Sie eine gültige Telefonnummer ein!");
         String adresse = tf_EmpfaengerAdresse.getText().trim();
 
@@ -289,7 +306,10 @@ public class BloomFenster extends JFrame {
         );
     }
 
-    // Methode zum Laden der gespeicherten Bestellung
+    // ---------------------------------------------------//
+    // 7. HILFSMETHODEN: Daten laden und Preis ermitteln  //
+    // ---------------------------------------------------//
+
     private void ladeInitialBestellungen() {
 
         if (!initialisiert) {            // Wenn die Bestellung noch nicht geladen wurden
@@ -306,4 +326,79 @@ public class BloomFenster extends JFrame {
 
         }
     }
+
+    // --------------------------------------------------------------------//
+    // 8. HILFSMETHODEN: Getter-Methoden zur Unterstützung von Unit-Tests  //
+    // --------------------------------------------------------------------//
+
+    // Getter für Textfelder
+
+    public JTextField getTf_Empfaenger() {
+
+        return tf_Empfaenger;
+    }
+
+    public JTextField getTf_EmpfaengerTele() {
+
+        return tf_EmpfaengerTele;
+    }
+
+    public JTextField getTf_EmpfaengerAdresse() {
+
+        return tf_EmpfaengerAdresse;
+    }
+
+    public JTextField getTf_Gesamtpreis() {
+
+        return tf_Gesamtpreis;
+    }
+
+    // Getter für Checkboxen
+    public JCheckBox getchb_Blumen1() {
+
+        return chb_Blumen1;
+    }
+
+    public JCheckBox getchb_Blumen2() {
+
+        return chb_Blumen2;
+    }
+
+    public JCheckBox getchb_Blumen3() {
+
+        return chb_Blumen3;
+    }
+
+    public JCheckBox getchb_Accessorie1() {
+
+        return chb_Accessorie1;
+    }
+
+    public JCheckBox getchb_Accessorie2() {
+
+        return chb_Accessorie2;
+    }
+
+    public JCheckBox getchb_Accessorie3() {
+
+        return chb_Accessorie3;
+    }
+
+    // Getter für ComboBoxen
+    public JComboBox getcb_Verpackung() {
+
+        return cb_Verpackung;
+    }
+
+    // Getter für Kalender und Uhrzeit
+    public JDateChooser getDateChooser() {
+
+        return dateChooser;
+    }
+
+    public JSpinner getSpn_Uhrzeit() {
+
+        return spn_Uhrzeit;
+    }
+
 }
