@@ -9,7 +9,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Locale;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.*;
+import java.util.List;
 
 public class BloomFenster extends JFrame {
 
@@ -160,29 +165,21 @@ public class BloomFenster extends JFrame {
         });
     }
 
-    private String leseName() {
+    public Bestellung erzeugeBestellungAusEingaben() {
+
         String name = tf_Empfaenger.getText().trim();
-        if (name.isEmpty())
-            throw new IllegalArgumentException("Name darf nicht leer sein.");
-        return name;
-    }
-
-    private String leseTelefon() {
+        if (name.isEmpty() || !name.matches("[a-zA-ZäöüÄÖÜß ]+")){
+            throw new IllegalArgumentException("Bitte geben Sie einen gültigen Namen ein!");
+        }
         String telefon = tf_EmpfaengerTele.getText().trim();
-        if (telefon.isEmpty())
-            throw new IllegalArgumentException("Telefonnummer darf nicht leer sein.");
-        return telefon;
-    }
-
-    private String leseAdresse() {
+        if (telefon.isEmpty() || !telefon.matches("\\d+"))                               // Wenn tf_Telefonnummer leer ist und keine Ziffern hat, Fehler auslösen
+            throw new IllegalArgumentException("Bitte geben Sie eine gültige Telefonnummer ein!");
         String adresse = tf_EmpfaengerAdresse.getText().trim();
+
         if (adresse.isEmpty())
             throw new IllegalArgumentException("Adresse darf nicht leer sein.");
-        return adresse;
-    }
-    private java.util.List<model.Geschenk> erzeugeGeschenkListe() {
 
-        java.util.List<model.Geschenk> liste = new java.util.ArrayList<>();
+        List<Geschenk> liste = new ArrayList<>();
 
         if (chb_Blumen1.isSelected())
             liste.add(new Geschenk("Blumen", "Rose", getPreis("Blumen", "Rose")));
@@ -205,41 +202,28 @@ public class BloomFenster extends JFrame {
         if (liste.isEmpty())
             throw new IllegalArgumentException("Bitte wählen Sie mindestens ein Geschenk.");
 
-        return liste;
-    }
-    private java.time.LocalDateTime leseDatumUndUhrzeit() {
-
-        java.util.Date datum = dateChooser.getDate();
+        Date datum = dateChooser.getDate();
         if (datum == null)
             throw new IllegalArgumentException("Bitte wählen Sie ein Datum.");
 
-        java.time.LocalDate date =
-                datum.toInstant()
-                        .atZone(java.time.ZoneId.systemDefault())
-                        .toLocalDate();
+        LocalDate date = datum.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();                   // Umwandlung von Date zu LocalDate (Zum Beispiel: 2025-06-20)
+        Date zeit = (Date) spn_Uhrzeit.getValue();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(zeit);
+        LocalTime time = LocalTime.of(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));            // Umwandlung von Date zu LocalTime (Zum Beispiel: 10:30)
+        LocalDateTime bestellungDatum = LocalDateTime.of(date, time);                                      // Datum und Uhrzeit zu einem LocalDateTime-Objekt kombinieren (z.B. 2025-06-20T10:30)
+        LocalDateTime jetzt = LocalDateTime.now()
+                .plusDays(1)
+                .withSecond(0)
+                .withNano(0);
 
-        java.util.Calendar cal = java.util.Calendar.getInstance();
-        cal.setTime((java.util.Date) spn_Uhrzeit.getValue());
+        if (bestellungDatum.isBefore(jetzt))
+            throw new IllegalArgumentException("Lieferzeit mindestens 24 Stunden nach Bestellung");         // Keine Bestellung in der Vergangenheit erlaubt
 
-        java.time.LocalTime time =
-                java.time.LocalTime.of(
-                        cal.get(java.util.Calendar.HOUR_OF_DAY),
-                        cal.get(java.util.Calendar.MINUTE)
-                );
 
-        return java.time.LocalDateTime.of(date, time);
+        return new Bestellung(name, telefon, adresse, liste, bestellungDatum);
     }
-    private model.Bestellung erzeugeBestellungAusEingaben() {
 
-        String name = leseName();
-        String telefon = leseTelefon();
-        String adresse = leseAdresse();
-
-        java.util.List<model.Geschenk> liste = erzeugeGeschenkListe();
-        java.time.LocalDateTime zeitpunkt = leseDatumUndUhrzeit();
-
-        return new model.Bestellung(name, telefon, adresse, liste, zeitpunkt);
-    }
     private void zeigeBestellung(Bestellung b) {
 
         StringBuilder sb = new StringBuilder();
