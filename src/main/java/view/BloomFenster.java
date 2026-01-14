@@ -59,6 +59,8 @@ public class BloomFenster extends JFrame {
     private JTextArea ta_Bestellung_Uebersicht;
 
     private JDateChooser dateChooser;
+    private BestellungVerwaltung verwaltung = new BestellungVerwaltung();  // Speichert und verwaltet alle Bestellungen
+    private boolean initialisiert = false;
 
     public BloomFenster() {
 
@@ -75,6 +77,35 @@ public class BloomFenster extends JFrame {
         setupActionListener_Berechnen();
         setupActionListener_Speichern();
 
+        //ladeInitialTermine();
+        verwaltung.initObjekte();
+        for (Bestellung b: verwaltung.getAlleBestellungen()) {
+            zeigeBestellung(b);
+        }
+
+    }
+
+    /* Alternative Konstruktor mit Steuerung, ob Beispieldaten geladen werden sollen.
+     * Wird beim Unit-Test verwendet, um das Fenster ohne initiale Daten zu öffnen.
+     * true = Beispieldaten werden geladen, false = leeres Fenster */
+
+    public BloomFenster(boolean ladeInitial) {
+        setTitle("iBeauty Manager");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1000, 500);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setContentPane(myPanel);
+        setVisible(true);
+
+        setupDatum_Uhrzeit();
+        setup_cbx_Verpackung();
+        setupActionListener_Berechnen();
+        setupActionListener_Speichern();
+
+        if (ladeInitial) {
+            ladeInitialBestellungen();
+        }
     }
 
     private void setupDatum_Uhrzeit() {
@@ -112,8 +143,8 @@ public class BloomFenster extends JFrame {
     public double berechneGesamtpreis() {                                 // Hilfsmethode zur Preisberechnung
         double preis = 0.0;
 
-        if (chb_Blumen1.isSelected()) {                                   // Wenn Dienst 1 (Massage) ausgewählt ist
-            preis += getPreis("Blumen", "Rose");               // Preis automatisch aus der Dienst-Liste holen. getPreis(Kategorie, Angebot) durchsucht alle gespeicherten Dienste
+        if (chb_Blumen1.isSelected()) {
+            preis += getPreis("Blumen", "Rose");
         }
         if (chb_Blumen2.isSelected()) {
             preis += getPreis("Blumen", "Sonnenblumen");
@@ -121,8 +152,8 @@ public class BloomFenster extends JFrame {
         if (chb_Blumen3.isSelected()) {
             preis += getPreis("Blumen", "Hortensie");
         }
-        if (chb_Accessorie1.isSelected()) {                                   // Wenn Dienst 1 (Massage) ausgewählt ist
-            preis += getPreis("Accessories", "Grußkarte");               // Preis automatisch aus der Dienst-Liste holen. getPreis(Kategorie, Angebot) durchsucht alle gespeicherten Dienste
+        if (chb_Accessorie1.isSelected()) {
+            preis += getPreis("Accessories", "Grußkarte");
         }
         if (chb_Accessorie2.isSelected()) {
             preis += getPreis("Accessories", "Schokolade");
@@ -206,12 +237,12 @@ public class BloomFenster extends JFrame {
         if (datum == null)
             throw new IllegalArgumentException("Bitte wählen Sie ein Datum.");
 
-        LocalDate date = datum.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();                   // Umwandlung von Date zu LocalDate (Zum Beispiel: 2025-06-20)
+        LocalDate date = datum.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();                   // Umwandlung von Date zu LocalDate (Zum Beispiel: 2026-01-20)
         Date zeit = (Date) spn_Uhrzeit.getValue();
         Calendar cal = Calendar.getInstance();
         cal.setTime(zeit);
         LocalTime time = LocalTime.of(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE));            // Umwandlung von Date zu LocalTime (Zum Beispiel: 10:30)
-        LocalDateTime bestellungDatum = LocalDateTime.of(date, time);                                      // Datum und Uhrzeit zu einem LocalDateTime-Objekt kombinieren (z.B. 2025-06-20T10:30)
+        LocalDateTime bestellungDatum = LocalDateTime.of(date, time);                                      // Datum und Uhrzeit zu einem LocalDateTime-Objekt kombinieren (z.B. 2026-01-20T10:30)
         LocalDateTime jetzt = LocalDateTime.now()
                 .plusDays(1)
                 .withSecond(0)
@@ -256,5 +287,23 @@ public class BloomFenster extends JFrame {
         ta_Bestellung_Uebersicht.setCaretPosition(
                 ta_Bestellung_Uebersicht.getDocument().getLength()
         );
+    }
+
+    // Methode zum Laden der gespeicherten Bestellung
+    private void ladeInitialBestellungen() {
+
+        if (!initialisiert) {            // Wenn die Bestellung noch nicht geladen wurden
+            verwaltung.initObjekte();    // Beispielbestellung in die Verwaltung laden
+            initialisiert = true;        // Nur einmal laden
+        }
+
+        for (Bestellung b : verwaltung.getAlleBestellungen()) {
+            String geschenkNamen = "";
+            for (Geschenk g : b.getKatergorie()) {
+                if (!geschenkNamen.isEmpty()) geschenkNamen += "\n";
+                geschenkNamen += g.getGeschenk() + ": " + g.getAngebot();
+            }
+
+        }
     }
 }
