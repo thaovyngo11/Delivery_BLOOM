@@ -250,6 +250,11 @@ public class BloomFenster extends JFrame {
         if (liste.isEmpty())
             throw new IllegalArgumentException("Bitte wählen Sie mindestens ein Geschenk.");
 
+        String preisText = tf_Gesamtpreis.getText().trim().replaceAll("[^\\d.]", "");    // Gesamtpreis-Text holen und Leerzeichen entfernen, nur Zahlen und Dezimalpunkt behalten (z.B. " 45.0 Euro " = "45.0")
+        if (preisText.isEmpty())                                                                           // Wenn kein Preis berechnet wurde, Fehler auslösen
+            throw new IllegalArgumentException("Bitte berechnen Sie zuerst den Gesamtpreis.");
+        double preis = Double.parseDouble(preisText);
+
         Date datum = dateChooser.getDate();
         if (datum == null)
             throw new IllegalArgumentException("Bitte wählen Sie ein Datum.");
