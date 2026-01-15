@@ -278,7 +278,7 @@
         <properties>
           <background color="-10451779"/>
           <foreground color="-10451779"/>
-          <text value="Speichern und Anzeigen"/>
+          <text value="Button"/>
         </properties>
       </component>
       <scrollpane id="7da36" binding="scp_Bestellung_Uebersicht">

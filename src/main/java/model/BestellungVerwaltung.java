@@ -6,22 +6,22 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/* Die Klasse TerminVerwaltung dient zur zentralen Verwaltung von Terminen.
-   Sie speichert alle Termine, bietet Zugriff auf die Terminliste
-   und ermöglicht das Filtern nach Telefonnummern.*/
+/* Die Klasse BestellungVerwaltung dient zur zentralen Verwaltung von Bestellungen.
+   Sie speichert alle Bestellungen, bietet Zugriff auf die Bestellungsliste */
 
 public class BestellungVerwaltung {
 
-    /* Die Klasse funktioniert wie eine Verwaltungszentrale für alle gebuchten Termine:
-       Sie ist für das Speichern, Abrufen und Filtern von Terminen zuständig. */
+    /* Die Klasse funktioniert wie eine Verwaltungszentrale für alle gebuchten Bestellung:
+       Sie ist für das Speichern, Abrufen zuständig. */
 
-    // ATTRIBUTE: Statische Liste zur Speicherung aller Termine
+    // ATTRIBUTE: Statische Liste zur Speicherung aller Bestellungen
     private static List<Bestellung> bestellungen = new ArrayList<>();
 
     public BestellungVerwaltung() {
 
     }
-    /*Fügt einen neuen Termin zur Terminliste hinzu.*/
+
+    /*Fügt eine neue Bestellung zur Bestellungsliste hinzu.*/
     public static void addBestellung(Bestellung bestellung) {
 
         bestellungen.add(bestellung);
@@ -38,7 +38,8 @@ public class BestellungVerwaltung {
 
         angebot1.add(new Geschenk("Blumen", "Rose", 10.0));
 
-        Bestellung b1 = new Bestellung( "Büsra", "015263816491", "Wiley Straße 1, 89231 Neu-Ulm", angebot1,
+        Bestellung b1 = new Bestellung( "Büsra",
+                "015263816491", "Wiley Straße 1, 89231 Neu-Ulm", angebot1,
                 LocalDateTime.of(2025, 12, 20, 18, 0)
         );
 

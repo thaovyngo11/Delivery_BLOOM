@@ -82,7 +82,6 @@ public class BloomFenster extends JFrame {
         setupActionListener_Berechnen();
         setupActionListener_Speichern();
 
-        //ladeInitialBestellungen();
         verwaltung.initObjekte();
         for (Bestellung b: verwaltung.getAlleBestellungen()) {
             zeigeBestellung(b);
@@ -153,7 +152,8 @@ public class BloomFenster extends JFrame {
 
     }
 
-    public double berechneGesamtpreis() {                                 // Hilfsmethode zur Preisberechnung
+    // Hilfsmethode zur Preisberechnung
+    public double berechneGesamtpreis() {
         double preis = 0.0;
 
         if (chb_Blumen1.isSelected()) {

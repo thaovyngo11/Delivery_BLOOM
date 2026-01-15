@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Bestellung {
 
-     /* Die Klasse "Bestellung" beschreibt einen Bestellung im System.
-       Ein Bestellung besteht aus: Absender Name, Absender Telefonnummer, Empfänger Name, Empfänger Telefonnummer, Empfänger Andresse, Geschenk Katergorie, Datum und Uhrzeit. */
+     /* Die Klasse "Bestellung" beschreibt eine Bestellung im System.
+       Eine Bestellung besteht aus: Empfänger Name, Empfänger Telefonnummer, Empfänger Andresse, Geschenk Katergorie, Datum und Uhrzeit. */
 
     // ATTRIBUTE
 

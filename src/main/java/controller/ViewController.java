@@ -10,6 +10,7 @@ public class ViewController {
 
     }
     public void BloomFenster_anzeigen() {
+
         bloomFenster.setVisible(true);
     }
 }
